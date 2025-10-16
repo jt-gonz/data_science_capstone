@@ -1,0 +1,6 @@
+- How many categories are in the job industry?
+- Create dashboard with clean data
+- Plot majors and positive outcomes in circle plot.
+- See statistical tests to see how relevant is the major and other features.
+- Athlete or non-athlete
+- Make a table of the positive outcomes among universities.
