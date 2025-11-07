@@ -1,5 +1,3 @@
-- How many categories are in the job industry?
-- Create dashboard with clean data
-- Plot majors and positive outcomes in circle plot.
-- See statistical tests to see how relevant is the major and other features.
-- Make a table of the positive outcomes among universities.
+- Look at students who go to university and report results
+- Report what majors tend to go to graduate school
+- Put the summer 2025 student to winter.
