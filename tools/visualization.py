@@ -30,7 +30,7 @@ def plot_top_majors(clean_df, n=5):
     plt.show()
 
 
-def plot_majors_by_term(clean_df, top_n=10):
+def plot_majors_by_term(clean_df, top_n=5):
     """Plot top majors for each graduation term."""
     plot_df = clean_df.dropna(subset=["Recipient Primary Major", "Recipient Graduation Date"]).copy()
 
@@ -87,13 +87,13 @@ def plot_top_secondary_majors(clean_df, n=5):
     plt.show()
 
 
-def plot_top_schools(clean_df, n=5):
+def plot_top_schools(clean_df):
     """Plot top N primary colleges."""
-    top_schools = clean_df["Recipient Primary College"].value_counts().nlargest(n)
+    top_schools = clean_df["Recipient Primary College Abbreviation"].value_counts()
 
     plt.figure(figsize=(10, 6))
     sns.barplot(x=top_schools.index, y=top_schools.values)
-    plt.title(f"Top {n} Primary Colleges")
+    plt.title(f"Distribution of Primary Colleges")
     plt.xlabel("College")
     plt.ylabel("Count")
     plt.xticks(rotation=45)

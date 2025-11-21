@@ -68,10 +68,10 @@ def run_pipeline(mode='all', save_data=True):
 
         # Demographics
         print("  - Top majors")
-        plot_top_majors(clean_data, n=10)
+        plot_top_majors(clean_data, n=5)
 
         print("  - Top schools")
-        plot_top_schools(clean_data, n=10)
+        plot_top_schools(clean_data)
 
         print("  - Sex distribution")
         plot_sex_distribution(clean_data)

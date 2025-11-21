@@ -43,9 +43,9 @@ def get_term(date_str):
     month = date.month
     year = date.year
 
-    if 1 <= month <= 5:
+    if 1 <= month <= 6:
         season = "Winter"
-    elif 6 <= month <= 8:
+    elif month <= 7:
         season = "Summer"
     else:
         season = "Fall"
@@ -115,12 +115,32 @@ def map_to_abb(major, mappings):
             return major.upper()
 
 
-def school_to_code(school, school_map):
+def school_to_code(row, school_map):
     """Map school name to code."""
+    school = row["Recipient Primary College"]
+    major_abb = row["Recipient Primary Major Abbreviation"]
+
     if pd.isna(school):
         return np.nan
     school = school.lower().strip()
+
+    if school.upper() == "NU":
+        return "CH"
+    elif school.upper() == "BH" and (major_abb == "PSYC" or major_abb == "BSW"):
+        return "EB"
+    elif school.upper() == "ED":
+        return "EB"
+    elif school.upper() == "BH" and major_abb == "BMGT":
+        return "BN"
+
     if school in school_map:
+        if school_map[school].upper() == "NU":
+            return "CH"
+        elif school_map[school].upper() == "BH" and major_abb == "PSYC":
+            return "EB"
+        elif school_map[school].upper() == "ED":
+            return "EB"
+
         return school_map[school].upper()
     else:
         return school.upper()
@@ -214,8 +234,9 @@ def load_and_prepare_data(fds_path='data/fds.csv',
     final_df["Recipient Secondary Majors Abbreviation"] = final_df["Recipient Secondary Majors"].apply(
         lambda x: map_to_abb(x, mappings)
     )
-    final_df["Recipient Primary College Abbreviation"] = final_df["Recipient Primary College"].apply(
-        lambda x: school_to_code(x, school_map)
+    final_df["Recipient Primary College Abbreviation"] = final_df[
+        ["Recipient Primary College", "Recipient Primary Major Abbreviation"]].apply(
+        lambda x: school_to_code(x, school_map), axis=1
     )
     final_df["Recipient Graduation Date Season"] = final_df["Recipient Graduation Date"].map(get_term)
     final_df["Outcome Category"] = final_df["Outcome"].map(categorize_outcome)
